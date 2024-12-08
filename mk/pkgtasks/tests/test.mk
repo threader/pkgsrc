@@ -35,18 +35,18 @@ CAT?=			cat
 CP?=			cp
 ECHO?=			echo
 FAIL_MSG?=		${ECHO} "!!!"
-LOCALBASE?=		/usr/pkg
+LOCALBASE?=		${PREFIX}/pkg
 MKDIR?=			mkdir -p
 MV?=			mv
-NOLOGIN?=		/sbin/nologin
-PKG_SYSCONFBASE?=	/etc
+NOLOGIN?=		${PREFIX}/sbin/nologin
+PKG_SYSCONFBASE?=	${PREFIX}/etc
 PREFIX?=		${LOCALBASE}
 RM?=			rm
 RUN?=			@
-SH?=			/bin/sh
+SH?=			${PREFIX}/bin/sh
 STEP_MSG?=		${ECHO} ">>>"
 TEST?=			test
-VARBASE?=		/var
+VARBASE?=		${PREFIX}/var
 
 PKG_SYSCONFDIR=		${PKG_SYSCONFSUBDIR:D${PKG_SYSCONFBASE}/${PKG_SYSCONFSUBDIR}:U${PKG_SYSCONFBASE}}
 

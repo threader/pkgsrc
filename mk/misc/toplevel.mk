@@ -15,7 +15,7 @@
 _README_TYPE_FLAG?=	none
 README.html: .PRECIOUS
 .if ${_README_TYPE_FLAG} == "--ftp" || ${_README_TYPE_FLAG} == "--cdrom"
-	${PKGSRC_SETENV} TMPDIR=${TMPDIR:U/tmp}/mkreadme	 		\
+	${PKGSRC_SETENV} TMPDIR=${TMPDIR:U${PREFIX}/tmp}/mkreadme	 		\
 		BMAKE=${MAKE}						\
 		./mk/scripts/mkreadme --pkgsrc ${.CURDIR} 		\
 		--packages ${PACKAGES} ${_README_TYPE_FLAG}		\

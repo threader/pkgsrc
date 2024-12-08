@@ -33,7 +33,7 @@
 #
 
 REV=`echo '$Revision: 1.40 $' | sed 's/\\$//g'`
-tmpdir=/tmp
+tmpdir=${PREFIX}/tmp
 spacesintab=8
 makefile=Makefile
 sedrules=$tmpdir/sedrules.buildlink.$$

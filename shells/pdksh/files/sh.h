@@ -283,7 +283,7 @@ extern int dup2 ARGS((int, int));
 #  define EXECSHELL	(inDOS() ? "c:\\command.com" : "c:\\os2\\cmd.exe")
 #  define EXECSHELL_STR	(inDOS() ? "COMSPEC" : "OS2_SHELL")
 # else /* OS2 */
-#  define EXECSHELL	"/bin/sh"
+#  define EXECSHELL	"${PREFIX}/bin/sh"
 #  define EXECSHELL_STR	"EXECSHELL"
 # endif /* OS2 */
 #endif

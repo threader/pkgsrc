@@ -43,7 +43,7 @@ fi
 PKG_DBDIR=${PKG_DBDIR:-@PKG_DBDIR@}
 PKG_SUFX=${PKG_SUFX:-@PKG_SUFX@}
 
-PKGREPOSITORY=${PKGREPOSITORY:-/tmp}
+PKGREPOSITORY=${PKGREPOSITORY:-${PREFIX}/tmp}
 
 # XXX Force pkg_info to ignore .tgz files.
 export PKG_PATH=

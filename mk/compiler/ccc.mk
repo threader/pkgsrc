@@ -15,20 +15,20 @@ LANGUAGES.ccc=		# empty
 
 _CCC_DIR=		${WRKDIR}/.ccc
 _CCC_VARS=		# empty
-.if exists(/usr/bin/cc)
+.if exists(${PREFIX}/bin/cc)
 LANGUAGES.ccc+=		c
 _CCC_VARS+=		CC
 _CCC_CC=		${_CCC_DIR}/cc
 _ALIASES.CC=		cc
-CCPATH=			/usr/bin/cc
+CCPATH=			${PREFIX}/bin/cc
 PKG_CC:=		${_CCC_CC}
 .endif
-.if exists(/usr/bin/cxx) && exists(/usr/lib/cmplrs/cxx)
+.if exists(${PREFIX}/bin/cxx) && exists(${PREFIX}/lib/cmplrs/cxx)
 LANGUAGES.ccc+=		c++
 _CCC_VARS+=		CXX
 _CCC_CXX=		${_CCC_DIR}/cxx
 _ALIASES.CXX=		c++ cxx
-CXXPATH=		/usr/bin/cxx
+CXXPATH=		${PREFIX}/bin/cxx
 PKG_CXX:=		${_CCC_CXX}
 .endif
 _COMPILER_STRIP_VARS+=	${_CCC_VARS}
@@ -72,11 +72,11 @@ ${_CCC_${_var_}}:
 	${RUN}${MKDIR} ${.TARGET:H}
 .    if !empty(COMPILER_USE_SYMLINKS:M[Yy][Ee][Ss])
 	${RUN}${RM} -f ${.TARGET}
-	${RUN}${LN} -s /usr/bin/${.TARGET:T} ${.TARGET}
+	${RUN}${LN} -s ${PREFIX}/bin/${.TARGET:T} ${.TARGET}
 .    else
 	${RUN}					\
 	(${ECHO} '#!${TOOLS_SHELL}';					\
-	 ${ECHO} 'exec /usr/bin/${.TARGET:T} "$$@"';			\
+	 ${ECHO} 'exec ${PREFIX}/bin/${.TARGET:T} "$$@"';			\
 	) > ${.TARGET}
 	${RUN}${CHMOD} +x ${.TARGET}
 .    endif

@@ -130,7 +130,7 @@ atf_test_case test3
 
 test3_head()
 {
-	: ${LOCALBASE:=/usr/pkg}
+	: ${LOCALBASE:=${PREFIX}/pkg}
 	: ${TASK_MODULE_DIR:=${LOCALBASE}/share/pkgtasks-1}
 
 	atf_set "descr" "create-usergroup with existing group & user"
@@ -140,7 +140,7 @@ test3_head()
 test3_body()
 {
 	: ${MAKE:=make}
-	: ${PKGSRCDIR:=/usr/pkgsrc}
+	: ${PKGSRCDIR:=${PREFIX}/pkgsrc}
 
 	setup
 
@@ -153,7 +153,7 @@ PKG_USERS=		root:wheel
 PERL5=			perl
 PKGNAME=		test-pkg
 SETENV=			env
-SH=			/bin/sh
+SH=			${PREFIX}/bin/sh
 PKG_REFCOUNT_DBDIR=	${.CURDIR}/refcount
 EOF
 	${MAKE} PKGSRCDIR="${PKGSRCDIR}" ||

@@ -34,8 +34,8 @@
 #
 
 
-TMPDIR=${TMPDIR:-/tmp}
-PACKAGES=${PACKAGES:-/usr/pkgsrc/packages/}
+TMPDIR=${TMPDIR:-${PREFIX}/tmp}
+PACKAGES=${PACKAGES:-${PREFIX}/pkgsrc/packages/}
 AWK=${AWK:-awk}
 CMP=${CMP:-cmp}
 FIND=${FIND:-find}

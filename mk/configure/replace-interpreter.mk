@@ -110,7 +110,7 @@ REPLACE_FILES.sys-sh=	${REPLACE_SH}
 .endif
 
 # sed regexp to match optional "/usr/bin/env" followed by one or more spaces
-REPLACE.optional-env-space= \(/usr/bin/env[[:space:]][[:space:]]*\)\{0,1\}
+REPLACE.optional-env-space= \(${PREFIX}/bin/env[[:space:]][[:space:]]*\)\{0,1\}
 
 .PHONY: replace-interpreter
 replace-interpreter:
