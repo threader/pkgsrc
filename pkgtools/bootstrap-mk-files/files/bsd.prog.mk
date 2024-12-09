@@ -115,7 +115,7 @@ cleanprog:
 
 .if defined(SRCS) && !target(afterdepend)
 afterdepend: .depend
-	@(TMP=/tmp/_depend$$$$; \
+	@(TMP=${ROOTFS_PREFIX}/tmp/_depend$$$$; \
 	    sed -e 's/^\([^\.]*\).o[ ]*:/\1.o \1.ln:/' \
 	      < .depend > $$TMP; \
 	    mv $$TMP .depend)

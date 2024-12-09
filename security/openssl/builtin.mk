@@ -141,14 +141,14 @@ BUILDLINK_PREFIX.openssl=	/boot/common
 SSLDIR=	${PKG_SYSCONFDIR.openssl}
 .  elif ${USE_BUILTIN.openssl:tl} == yes
 .    if ${OPSYS} == "NetBSD"
-SSLDIR=	/etc/openssl
+SSLDIR=	${ROOTFS_PREFIX}/etc/openssl
 .    elif ${OPSYS} == "Linux"
-.      if exists(${_CROSS_DESTDIR:U}/etc/pki/tls)
-# Some distributions have moved to /etc/pki/tls, with incomplete
-# symlinks from /etc/ssl.  Prefer the new location if it exists
-SSLDIR=	/etc/pki/tls
+.      if exists(${_CROSS_DESTDIR:U}${ROOTFS_PREFIX}/etc/pki/tls)
+# Some distributions have moved to ${ROOTFS_PREFIX}/etc/pki/tls, with incomplete
+# symlinks from ${ROOTFS_PREFIX}/etc/ssl.  Prefer the new location if it exists
+SSLDIR=	${ROOTFS_PREFIX}/etc/pki/tls
 .      else
-SSLDIR=	/etc/ssl 		# standard location
+SSLDIR=	${ROOTFS_PREFIX}/etc/ssl 		# standard location
 .      endif
 .    elif ${OPSYS} == "Haiku"
 .      if exists(${_CROSS_DESTDIR:U}/boot/system/data/ssl)
@@ -157,7 +157,7 @@ SSLDIR=	/boot/system/data/ssl
 SSLDIR=	/boot/common/data/ssl
 .      endif
 .    else
-SSLDIR=	/etc/ssl 		# most likely place
+SSLDIR=	${ROOTFS_PREFIX}/etc/ssl 		# most likely place
 .    endif
 .  else
 SSLDIR=	${PKG_SYSCONFBASEDIR}/openssl

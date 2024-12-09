@@ -48,7 +48,7 @@
 #
 
 BEGIN {
-	printf("#!/bin/sh\n#\n\n");
+	printf("#!${ROOTFS_PREFIX}/bin/sh\n#\n\n");
 	printf("# Starting scan for NO_BIN_ON_FTP packages\n\n");
 	notify = 0;
 }

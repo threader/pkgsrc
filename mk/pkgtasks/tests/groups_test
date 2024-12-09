@@ -67,7 +67,7 @@ test1_head()
 test1_body()
 {
 	: ${MAKE:=make}
-	: ${PKGSRCDIR:=/usr/pkgsrc}
+	: ${PKGSRCDIR:=${ROOTFS_PREFIX}/pkgsrc}
 
 	setup
 
@@ -82,7 +82,7 @@ EOF
 USERGROUP_PHASE=	configure
 PKG_GROUPS=		g1 g2 g3
 
-SH=		/bin/sh
+SH=		${ROOTFS_PREFIX}/bin/sh
 _GETGID_CMD=	${SH} getgid.sh
 EOF
 	# Expected output is each group inserted into the

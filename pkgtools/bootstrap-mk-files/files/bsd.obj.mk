@@ -45,7 +45,7 @@ __usrobjdirpf=
 .endif
 .endif
 
-PAWD?=		/bin/pwd
+PAWD?=		${ROOTFS_PREFIX}/bin/pwd
 
 obj:
 	@cd ${.CURDIR}; \

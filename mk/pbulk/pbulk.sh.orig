@@ -17,7 +17,7 @@ done
 shift $(expr $OPTIND - 1)
 if [ $# != 0 ]; then echo "$usage" 1>&2; exit 1; fi
 
-: ${TMPDIR:=${ROOTFS_PREFIX}/tmp}
+: ${TMPDIR:=/tmp}
 
 ## settings for unprivileged build:
 if [ -n "$unprivileged" ]; then
@@ -29,14 +29,14 @@ if [ -n "$unprivileged" ]; then
 fi
 
 ##
-: ${PBULKPREFIX:=${ROOTFS_PREFIX}/usr/pbulk}
+: ${PBULKPREFIX:=/usr/pbulk}
 : ${PBULKWORK:=${TMPDIR}/work-pbulk}
 
 : ${PACKAGES:=/mnt/packages}
 : ${BULKLOG:=/mnt/bulklog}
 
 # almost constant:
-: ${PKGSRCDIR:=${ROOTFS_PREFIX}/usr/pkgsrc}
+: ${PKGSRCDIR:=/usr/pkgsrc}
 
 # setting pkgdb directory:
 if [ -n "$unprivileged" -o -n "${PREFIX}" ]; then
@@ -152,7 +152,7 @@ if [ -n "$native" ]; then
 # Native bulk build (native make, no bootstrap kit needed):
 cat >> ${PBULKPREFIX}/etc/pbulk.conf.over <<EOF
 # Native bulk build overrides:
-make=${ROOTFS_PREFIX}/usr/bin/make
+make=/usr/bin/make
 bootstrapkit=
 EOF
 fi

@@ -12,7 +12,7 @@ PKGLOCALEDIR?=	share
 
 TYPE?=		type			# Shell builtin
 
-.if exists(/etc/NIXOS)
+.if exists(${ROOTFS_PREFIX}/etc/NIXOS)
 PS?=		/run/current-system/sw/bin/ps
 SU?=		/run/current-system/sw/bin/su
 USERADD?=	/run/current-system/sw/bin/useradd
@@ -20,30 +20,30 @@ GROUPADD?=	/run/current-system/sw/bin/groupadd
 NOLOGIN?=	/run/current-system/sw/bin/nologin
 .endif
 
-PS?=		/bin/ps
-.if exists(/usr/bin/su)
-SU?=		/usr/bin/su
+PS?=		${ROOTFS_PREFIX}/bin/ps
+.if exists(${ROOTFS_PREFIX}/bin/su)
+SU?=		${ROOTFS_PREFIX}/usr/bin/su
 .else
-SU?=		/bin/su
+SU?=		${ROOTFS_PREFIX}/bin/su
 .endif
-.if exists(/sbin/nologin)
-NOLOGIN?=	/sbin/nologin
-.elif exists(/usr/sbin/nologin)
-NOLOGIN?=	/usr/sbin/nologin
+.if exists(${ROOTFS_PREFIX}/sbin/nologin)
+NOLOGIN?=	${ROOTFS_PREFIX}/sbin/nologin
+.elif exists(${ROOTFS_PREFIX}/usr/sbin/nologin)
+NOLOGIN?=	${ROOTFS_PREFIX}/usr/sbin/nologin
 .else
-NOLOGIN?=	/bin/false
+NOLOGIN?=	${ROOTFS_PREFIX}/bin/false
 .endif
-USERADD?=	/usr/sbin/useradd
-GROUPADD?=	/usr/sbin/groupadd
+USERADD?=	${ROOTFS_PREFIX}/usr/sbin/useradd
+GROUPADD?=	${ROOTFS_PREFIX}/usr/sbin/groupadd
 
 CPP_PRECOMP_FLAGS?=	# unset
 DEF_UMASK?=		022
 DEFAULT_SERIAL_DEVICE?=	/dev/null
 EXPORT_SYMBOLS_LDFLAGS?=	# Don't add symbols to the dynamic symbol table
 MOTIF_TYPE_DEFAULT?=	motif	# default 2.0 compatible libs type
-PKG_TOOLS_BIN?=		${LOCALBASE}/sbin
+PKG_TOOLS_BIN?=		${ROOTFS_PREFIX}/${LOCALBASE}/sbin
 ROOT_CMD?=		${SU} - root -c
-.if exists(/etc/ssdlinux_version)
+.if exists(${ROOTFS_PREFIX}/etc/ssdlinux_version)
 ROOT_GROUP?=		wheel
 .else
 ROOT_GROUP?=		root
@@ -61,49 +61,49 @@ _OPSYS_EMULDIR.linux32=	# empty
 # Support Debian/Ubuntu's multiarch hierarchy.
 .if exists(/etc/debian_version)
 .  if !empty(MACHINE_ARCH:Mx86_64)
-_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu
-_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/x86_64-linux-gnu:${ROOTFS_PREFIX}/lib/x86_64-linux-gnu
+_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/x86_64-linux-gnu ${ROOTFS_PREFIX}/lib/x86_64-linux-gnu
 .  endif
 .  if !empty(MACHINE_ARCH:Mi386)
-_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/i386-linux-gnu:/usr/lib/i386-linux-gnu
-_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/i386-linux-gnu /usr/lib/i386-linux-gnu
+_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}:/lib/i386-linux-gnu:${ROOTFS_PREFIX}/lib/i386-linux-gnu
+_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX} /lib/i386-linux-gnu ${ROOTFS_PREFIX}/lib/i386-linux-gnu
 .  endif
 .  if !empty(MACHINE_ARCH:Marm*)
 .    if exists(/etc/ld.so.conf.d/arm-linux-gnueabihf.conf)
-_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/arm-linux-gnueabihf:/usr/lib/arm-linux-gnueabihf
-_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/arm-linux-gnueabihf /usr/lib/arm-linux-gnueabihf
+_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}:/lib/arm-linux-gnueabihf:${ROOTFS_PREFIX}/lib/arm-linux-gnueabihf
+_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX} /lib/arm-linux-gnueabihf ${ROOTFS_PREFIX}/lib/arm-linux-gnueabihf
 .    else
-_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/arm-linux-gnueabi:/usr/lib/arm-linux-gnueabi
-_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/arm-linux-gnueabi /usr/lib/arm-linux-gnueabi
+_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}:/lib/arm-linux-gnueabi:${ROOTFS_PREFIX}/lib/arm-linux-gnueabi
+_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX} /lib/arm-linux-gnueabi ${ROOTFS_PREFIX}/lib/arm-linux-gnueabi
 .    endif
 .  endif
 .  if !empty(MACHINE_ARCH:Maarch64)
 LIBABISUFFIX?=		/aarch64-linux-gnu
-_OPSYS_SYSTEM_RPATH=	/lib:/usr/lib:/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
-_OPSYS_LIB_DIRS?=	/lib /usr/lib /lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
+_OPSYS_SYSTEM_RPATH=	/lib:${ROOTFS_PREFIX}/lib:/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/lib ${ROOTFS_PREFIX}/lib /lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
 .  endif
 .  if !empty(MACHINE_ARCH:Mpowerpc64le)
 LIBABISUFFIX?=		/powerpc64le-linux-gnu
-_OPSYS_SYSTEM_RPATH=	/lib:/usr/lib:/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
-_OPSYS_LIB_DIRS?=	/lib /usr/lib /lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
+_OPSYS_SYSTEM_RPATH=	/lib:${ROOTFS_PREFIX}/lib:/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/lib ${ROOTFS_PREFIX}/lib /lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
 .  endif
 .elif exists(/etc/arch-release)
-_OPSYS_SYSTEM_RPATH=	/lib:/usr/lib:/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
-_OPSYS_LIB_DIRS?=	/lib /usr/lib /lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
+_OPSYS_SYSTEM_RPATH=	/lib:${ROOTFS_PREFIX}/lib:/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/lib ${ROOTFS_PREFIX}/lib /lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
 .elif exists(/etc/NIXOS)
 # NixOS has no fixed locations for system libraries.
 _OPSYS_INCLUDE_DIRS!=	echo "" | cpp -v 2>&1 | grep '^[[:space:]]*/.*include$$' | tr '\n' ' '
 
 _OPSYS_LIB_DIRS!=	cc -print-search-dirs | awk '/^libraries:/ { $$1=""; $$2=substr($$2, 2); print $$0; }' | tr ':' '\n' 
 .else
-_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
-_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
+_OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} ${ROOTFS_PREFIX}/lib${LIBABISUFFIX}
 .endif
-_OPSYS_INCLUDE_DIRS?=	/usr/include
+_OPSYS_INCLUDE_DIRS?=	${ROOTFS_PREFIX}/include
 
 .if !empty(OS_VARIANT:Mchromeos)
-_OPSYS_LIB_DIRS+=	/usr/local/lib
-_OPSYS_INCLUDE_DIRS+=	/usr/local/include
+_OPSYS_LIB_DIRS+=	${ROOTFS_PREFIX}/local/lib
+_OPSYS_INCLUDE_DIRS+=	${ROOTFS_PREFIX}/local/include
 .endif
 
 # These are libc builtins
@@ -140,8 +140,8 @@ _OPSYS_CAN_CHECK_SSP=		no  # only supports libssp at this time
 
 # check for maximum command line length and set it in configure's environment,
 # to avoid a test required by the libtool script that takes forever.
-.if exists(/usr/bin/getconf)
-_OPSYS_MAX_CMDLEN_CMD?=	/usr/bin/getconf ARG_MAX
+.if exists(${ROOTFS_PREFIX}/bin/getconf)
+_OPSYS_MAX_CMDLEN_CMD?=	${ROOTFS_PREFIX}/bin/getconf ARG_MAX
 .endif
 
 # Register support for FORTIFY (with GCC).  Linux only supports FORTIFY

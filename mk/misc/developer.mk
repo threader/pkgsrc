@@ -171,7 +171,7 @@ do-upload-distfiles: checksum
 	distdir='~ftp/pub/pkgsrc/distfiles';				\
 	ssh_cmd="ssh -l ${NETBSD_LOGIN_NAME} $${disthost}";		\
 	${STEP_MSG} "Checking uploaded files";				\
-	uploaded_files=`${ECHO} "(cd $${distdir} && /bin/ls -1d ${_ALLFILES}) 2>/dev/null || ${TRUE}" | $${ssh_cmd} /bin/sh`;	\
+	uploaded_files=`${ECHO} "(cd $${distdir} && ${ROOTFS_PREFIX}/bin/ls -1d ${_ALLFILES}) 2>/dev/null || ${TRUE}" | $${ssh_cmd} ${ROOTFS_PREFIX}/bin/sh`;	\
 	pending_files="";						\
 	for file in ${_ALLFILES}; do					\
 		found=0;						\
@@ -188,7 +188,7 @@ do-upload-distfiles: checksum
 	if ${TEST} -n "$${pending_files}"; then				\
 		${STEP_MSG} "Uploading distfiles";			\
 		cd ${DISTDIR} && ${TAR:U${TOOLS_PLATFORM.tar:Utar}} cf - $${pending_files} | 	\
-			$${ssh_cmd} /bin/tar xpf - -C "$${distdir}";	\
+			$${ssh_cmd} ${ROOTFS_PREFIX}/bin/tar xpf - -C "$${distdir}";	\
 	fi
 .endif
 

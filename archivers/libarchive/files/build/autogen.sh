@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PATH=/usr/local/gnu-autotools/bin/:$PATH
+PATH=/usr/local/gnu-autotools/bin/:${ROOTFS_PREFIX}/usr/local/gnu-autotools/bin/:${ROOTFS_PREFIX}/local/gnu-autotools/bin/:${ROOTFS_PREFIX}/bin/:$PATH
 export PATH
 
 # Start from one level above the build directory

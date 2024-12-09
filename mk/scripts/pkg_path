@@ -60,7 +60,7 @@
 ######################################################################
 
 : ${ECHO=echo}
-: ${PKGSRCDIR="/usr/pkgsrc"}
+: ${PKGSRCDIR="${ROOTFS_PREFIX}/usr/pkgsrc"}
 : ${PWD_CMD="pwd -P"}
 
 self="${0##*/}"
